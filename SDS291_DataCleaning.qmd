@@ -1,0 +1,11 @@
+---
+title: "GP_SDS291_DataCleaning"
+format: pdf
+editor: visual
+---
+
+```{r}
+lego_prices <- read.csv("lego-prices.csv")
+```
+
+
