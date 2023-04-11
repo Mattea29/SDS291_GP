@@ -3,13 +3,13 @@ title: "GP_SDS291_DataCleaning"
 format: pdf
 editor: visual
 ---
+
 ```{r, echo = FALSE, message = FALSE}
 #loading in packages
 library(readr)
 library(tidyverse)
 library(dplyr)
 ```
-
 
 ```{r}
 #loading in data frame
@@ -18,10 +18,57 @@ lego_prices <- read.csv("lego-prices.csv")
 
 ```{r}
 lego_prices$fem <- case_when(grepl(pattern = "Friends", x = lego_prices$Theme) ~"1",
-                             grepl(pattern = "Unikitty", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "Unikitty!", x = lego_prices$Theme) ~"1",
                              grepl(pattern = "Trolls", x = lego_prices$Theme) ~ "1",
                              grepl(pattern = "Powerpuff", x = lego_prices$Theme) ~ "1",
                              grepl(pattern = "Frozen", x = lego_prices$Theme) ~"1", 
                              .default = "0")
 ```
+
+```{r}
+lego_prices$masc <- case_when(grepl(pattern = "Star Wars", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "City", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "NINJAGO", x = lego_prices$Theme) ~ "1",
+                             grepl(pattern = "Minecraft", x = lego_prices$Theme) ~ "1",
+                             grepl(pattern = "Batman", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "Marvel", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "Technic", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "Jurassic World", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "Speed Champions", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "Overwatch", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "DC", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "Monkie Kid", x = lego_prices$Theme) ~"1",
+                             .default = "0")
+```
+
+```{r}
+lego_prices$neutral <- case_when(grepl(pattern = "DOTS", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "Classic", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "DUPLO", x = lego_prices$Theme) ~ "1",
+                             grepl(pattern = "Disney", x = lego_prices$Theme) ~ "1",
+                             grepl(pattern = "Creator 3-in-1", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "THE LEGO MOVIE 2", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "BrickHeadz", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "LEGO Super Mario", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "Harry Potter", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "Hidden Side", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "Minions", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "Spider-Man", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "Juniors", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "Architecture", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "Ideas", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "Creator Expert", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "LEGO Art", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "Minifigures", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "Xtra", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "LEGO Brick Sketches", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "LEGO Education", x = lego_prices$Theme) ~"1",
+                             .default = "0")
+```
+
+
+ 
+
+
+
 
