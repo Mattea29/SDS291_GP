@@ -17,7 +17,11 @@ lego_prices <- read.csv("lego-prices.csv")
 ```
 
 ```{r}
-lego_prices$fem <- as.numeric(ifelse(grepl("Friends", lego_prices$Theme))) 
-  1
+lego_prices$fem <- case_when(grepl(pattern = "Friends", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "Unikitty", x = lego_prices$Theme) ~"1",
+                             grepl(pattern = "Trolls", x = lego_prices$Theme) ~ "1",
+                             grepl(pattern = "Powerpuff", x = lego_prices$Theme) ~ "1",
+                             grepl(pattern = "Frozen", x = lego_prices$Theme) ~"1", 
+                             .default = "0")
 ```
 
