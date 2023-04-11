@@ -3,9 +3,16 @@ title: "GP_SDS291_DataCleaning"
 format: pdf
 editor: visual
 ---
-
-```{r}
-lego_prices <- read.csv("lego-prices.csv")
+```{r, echo = FALSE, message = FALSE}
+#loading in packages
+library(readr)
+library(tidyverse)
+library(dplyr)
 ```
 
+
+```{r}
+#loading in data frame
+lego_prices <- read.csv("lego-prices.csv")
+```
 
