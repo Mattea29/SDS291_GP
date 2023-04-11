@@ -19,3 +19,20 @@ The response variable will be the price of Lego sets, measured in US dollars. Th
 The explanatory variables will be pieces per set, a numerical variable measured in integers ranging from 1 to 6020, and filtered by gender which will be divided into two categorical variables taking a value of 0 or 1. One variable will be girl, for which an observation will be taking a value of 1 if it is for an audience of girls, or 0 if it is not. Another variable will be boys, for which an observation will take a value of 1 if it is for an audience of boys or 0 if it is not. This way, if neither variable is “on”, the reference category will be gender neutral. 
 
 ## Exploratory Visualizations
+```{r, warning = FALSE, echo = FALSE}
+library(readr)
+library(ggplot2)
+library(dplyr)
+lego_clean <- read.csv("lego_clean.csv")
+
+lego_clean$fem <- factor(lego_clean$fem, labels = c("No", "Yes"))
+```
+
+```{r, warning = FALSE, echo = FALSE, message = FALSE}
+price_piece_fem <- lm(Price ~ Pieces + fem, lego_clean)
+ggplot(lego_clean, aes( x = Pieces, y = Price, color = fem)) + 
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm") + 
+  labs(title = "Scatterplot of Lego Price as a Function of \n Number of Pieces and Gender (Feminine or not)")
+```
+
