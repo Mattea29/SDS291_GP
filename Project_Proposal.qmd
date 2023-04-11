@@ -9,7 +9,7 @@ format: pdf
 In this project, we will be exploring the different prices and number of pieces per set of Lego’s that have a specific gender as their target audience, looking at the difference between the binary genders male and female, and between gendered sets and sets that are deemed neutral. We will be making our hypotheses based on long-standing societal norms about toys aimed towards boys versus girls. Our main hypothesis is that sets whose target audience is girls will have, on average, a higher price than sets geared towards boys. A secondary hypothesis is that sets that have a specific gender audience will have higher prices than sets with a gender neutral audience. A tertiary hypothesis is that sets aimed at girls will have less pieces per set, on average, than sets that are neutral or aimed at boys. 
 
 ## Data
-The data we will be using can be found here, and comes from 
+The data we will be using can be found at brickset.com. This is an online resource for Lego fans that compares various prices found online through different retailers for a specific set of Legos. 
 
 ## Outcome Variable
 The response variable will be the price of Lego sets, measured in US dollars. This is a numeric variable with values from 1.99 to 699.99. 
