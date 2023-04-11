@@ -68,6 +68,9 @@ lego_prices$neutral <- case_when(grepl(pattern = "DOTS", x = lego_prices$Theme) 
 
 
  
+```{r}
+write.csv(lego_prices, "lego_clean.csv")
+```
 
 
 
