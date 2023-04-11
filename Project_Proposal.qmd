@@ -1,10 +1,9 @@
 ---
-title: "Project_Proposal"
+title: "Cost Difference of Gendered Lego Sets"
+author: "Rachel Lawson, Raley Long, Amelia Tarno, Mattea Whitlow"
 format: pdf
 ---
 
-# Cost Difference of Gendered Lego Sets
-## Rachel Lawson, Raley Long, Amelia Tarno, Matea Whitlow
 
 ## Proposal
 In this project, we will be exploring the different prices and number of pieces per set of Lego’s that have a specific gender as their target audience, looking at the difference between the binary genders male and female, and between gendered sets and sets that are deemed neutral. We will be making our hypotheses based on long-standing societal norms about toys aimed towards boys versus girls. Our main hypothesis is that sets whose target audience is girls will have, on average, a higher price than sets geared towards boys. A secondary hypothesis is that sets that have a specific gender audience will have higher prices than sets with a gender neutral audience. A tertiary hypothesis is that sets aimed at girls will have less pieces per set, on average, than sets that are neutral or aimed at boys. 
