@@ -126,7 +126,7 @@ get_regression_table(price_piece_masc)
 get_regression_table(price_piece_neutral)
 ```
 
-### Model Comparison
+### Model Comparison:
 
 ```{r,  message = FALSE, warning = FALSE}
 anova(price_piece, price_piece_neutral)
@@ -146,7 +146,7 @@ anova(price_piece, price_piece_fem)
 
 -   Since the p-value is above the threshold of 0.05, we fail to reject the null hypothesis and conclude the reduced model (price_piece) explains more variability in the data than a model that also accounts for feminine marketing.
 
-## Comparing The Interaction Models to Each other
+### Regression Summaries:
 
 ```{r,  message = FALSE, warning = FALSE}
 get_regression_summaries(price_piece_neutral)
