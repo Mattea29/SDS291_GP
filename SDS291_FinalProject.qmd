@@ -5,7 +5,21 @@ format: pdf
 editor: visual
 ---
 
-## Importing Packages
+## Introduction:
+
+Are Legos sexist? The term "pink tax" is widely used to explain the phenomenon of products aimed at women costing more than similar products aimed at men. In a study published by the Federal Commission Trade, a group of female researchers looked at the verity of the pink tax in the personal care product sector and did not find evidence to support the claim that women do indeed face higher costs than their male counterparts.
+
+In this data analysis, we will be looking at the same question in the toy sector, specifically the brand Lego as this is a large international company with global reach and potential impact on consumers. We will be asking and attempting to answer the question: do feminine Lego sets tend towards higher price tags than their more masculine counterparts? In order to determine the answer, we will create a model including pieces per set, price per set, and gender of set. We hypothesize that feminine lego sets are more expensive on average than masculine or neutral ones. Our null hypothesis is that the gendered models are not necessary and the nested model that only considers price as a function of pieces is enough.
+
+In a modern world on its way to achieving gender equality, it is becoming increasingly important to recognize where inequalities exist in order to work towards eliminating them. By determining if prices differ across a gender spectrum, companies can alter their marketing and pricing tactics to better reflect their audiences.
+
+## Methods:
+
+The dataset we will be analyzing uses data from brickset.com, an online resource for Lego fans that compares various prices found online through different retailers for a specific set of Legos. It contains 1,305 observations of fifteen variables. For our analysis, we considered the variables set name, set theme, and total number of pieces in the set, and we also created the variables "masc", "fem", and "neutral", categorical variables with categories "Yes" and "No" based on our interpretation of the set theme as one of the three options. For our explanatory variable we selected pieces per set, a numerical variable measured in integers ranging from 1 to 6020, and filtered by gender which further divided the observations into our three categorical variables. Our response variable is the price of Lego sets, measured in US dollars, a numeric variable with values ranging from 1.99 to 699.99. In order to address the question of whether Lego set prices depend on the set's targeted gender category, we fit four models. Our first, basic model looks at price as a function of pieces. Our other models consider price as a function of the interaction between pieces and gender category, one for each "masc", "fem", or "neutral" as we defined them in our modified dataset. In evaluating the assumptions of this model, we found that all assumptions are met except normality, which is violated. Because all models violate the normality condition at the extremity points and we are primarily performing a model comparison, this violation carries through and our model comparison should still hold relatively well. This will impact generalizability to all Lego sets, making our conclusions less generalizable.
+
+## Data Analysis:
+
+### Importing Packages
 
 ```{r, message = FALSE, warning = FALSE}
 library(moderndive)
@@ -15,7 +29,7 @@ library(ggplot2)
 library(Stat2Data)
 ```
 
-## Data Importing
+### Data Importing
 
 ```{r,  message = FALSE, warning = FALSE}
 lego_clean <- read.csv("lego_clean.csv")
@@ -25,7 +39,21 @@ lego_clean$neutral <- factor(lego_clean$neutral, labels = c("No", "Yes"))
 
 ```
 
-## Exploratory Visualizations
+### Exploratory Visualizations
+
+```{r,  message = FALSE, warning = FALSE}
+ggplot(lego_clean, aes(x = fem)) + geom_bar() + geom_text(stat = 'count', aes(label=after_stat(count)), vjust = -0.20) + labs(title = "Counts of Feminine vs. Non-Feminine Marketed Lego Sets", x = "Feminine or Not", y = "Count")
+```
+
+```{r,  message = FALSE, warning = FALSE}
+ggplot(lego_clean, aes(x = masc)) + geom_bar() + geom_text(stat = 'count', aes(label=after_stat(count)), vjust = -0.20) + labs(title = "Counts of Masculine vs. Non-Masculine Marketed Lego Sets", x = "Masculine or Not", y = "Count")
+```
+
+```{r,  message = FALSE, warning = FALSE}
+ggplot(lego_clean, aes(x = neutral)) + geom_bar() + geom_text(stat = 'count', aes(label=after_stat(count)), vjust = -0.2) + labs(title = "Counts of Neutral vs. Non-Neutral  Marketed Lego Sets", x = "Neutral or Not", y = "Count")
+```
+
+### Models:
 
 ```{r,  message = FALSE, warning = FALSE}
 price_piece_fem <- lm(Price ~ Pieces * fem, lego_clean)
@@ -33,19 +61,6 @@ ggplot(lego_clean, aes( x = Pieces, y = Price, color = fem)) +
   geom_point(alpha = 0.5) +
   geom_smooth(method = "lm") + 
   labs(title = "Scatterplot of Lego Price as a Function of \n Number of Pieces and Gender (Feminine or not)")
-```
-
-```{r,  message = FALSE, warning = FALSE}
-ggplot(lego_clean, aes(x = fem)) + geom_bar() + geom_text(stat = 'count', aes(label=after_stat(count)), vjust = -0.5) + labs(title = "Counts of Feminine vs. Non-Feminine Marketed Lego Sets", x = "Feminine or Not", y = "Count")
-```
-
-```{r,  message = FALSE, warning = FALSE}
-ggplot(lego_clean, aes(x = masc)) + geom_bar() + geom_text(stat = 'count', aes(label=after_stat(count)), vjust = -0.5) + labs(title = "Counts of Masculine vs. Non-Masculine Marketed Lego Sets", x = "Masculine or Not", y = "Count")
-```
-
-```{r,  message = FALSE, warning = FALSE}
-ggplot(lego_clean, aes(x = neutral)) + geom_bar() + geom_text(stat = 'count', aes(label=after_stat(count)), vjust = -0.5) + labs(title = "Counts of Neutral vs. Non-Neutral  Marketed Lego Sets", x = "Neutral or Not", y = "Count")
-
 ```
 
 ```{r,  message = FALSE, warning = FALSE}
@@ -64,6 +79,16 @@ ggplot(lego_clean, aes( x = Pieces, y = Price, color = neutral)) +
   labs(title = "Scatterplot of Lego Price as a Function of \n Number of Pieces and Gender (Neutral or not)")
 ```
 
+```{r, warning = FALSE, message = FALSE}
+price_piece <- lm(Price ~ Pieces, data = lego_clean)
+ggplot(lego_clean, aes( x = Pieces, y = Price)) + 
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm") + 
+  labs(title = "Scatterplot of Lego Price as a Function of \n Number of Pieces")
+```
+
+### Condition Check
+
 ```{r,  message = FALSE, warning = FALSE}
 plot(price_piece_neutral)
 ```
@@ -81,6 +106,10 @@ price_piece <- lm(Price ~ Pieces, data = lego_clean)
 plot(price_piece)
 ```
 
+All models violate the normality condition at the extremity points. Since we are primarily doing a model comparison and this violation carries through, the comparison should still hold relatively well. This will however make our findings much less generalizable.
+
+### Regression Summaries:
+
 ```{r,  message = FALSE, warning = FALSE}
 get_regression_table(price_piece)
 ```
@@ -97,31 +126,25 @@ get_regression_table(price_piece_masc)
 get_regression_table(price_piece_neutral)
 ```
 
-## Model Comparison
-
-*compare price_piece model (consider this are nested model) to the models that look at both price and gender (this would be the full model)* null hypothesis: the nested model that only looks at price as a function of pieces is enough (coefficent of sex has no effect = 0) \*alternative hypothesis: need the full model (coefficent of sex has an effect)
+### Model Comparison
 
 ```{r,  message = FALSE, warning = FALSE}
 anova(price_piece, price_piece_neutral)
 ```
 
-\*wheter a set is marked as gender neutral or not has an effect on price (the full model is better the fit) - Gender neutrality is a necessary component of the model
+-   This nested f- test concludes that whether a set is marked as gender neutral or not has an effect on price (the full model is better the fit). Gender neutrality is a necessary component of the model
 
 ```{r,  message = FALSE, warning = FALSE}
 anova(price_piece, price_piece_masc)
 ```
 
-\*whether a set is marked as masculine or not has an effect on price (the full model is a better fit) - masculinity is a necessary component of the model.
+-   This nested f-test concludes that whether a set is marked as masculine or not has an effect on price (the full model is a better fit). Masculinity is a necessary component of the model.
 
 ```{r,  message = FALSE, warning = FALSE}
 anova(price_piece, price_piece_fem)
 ```
 
-\*fail to reject the null hypothesis and conclude the reduced model (price_piece) explains more variability in the dataset than a model accounting for femine marketing.
-
-## LINE Violations
-
-\*all models violate the normality condition at the extremity points. Since we are primarily doing a model comparison, this violation carries through and a model comparison should still hold relatively well. This will impact generalizability to all lego sets (make it less generalizable).
+-   Since the p-value is above the threshold of 0.05, we fail to reject the null hypothesis and conclude the reduced model (price_piece) explains more variability in the data than a model that also accounts for feminine marketing.
 
 ## Comparing The Interaction Models to Each other
 
@@ -133,10 +156,10 @@ get_regression_summaries(price_piece_neutral)
 get_regression_summaries(price_piece_masc)
 ```
 
-\*the adjusted r squared values indicate that the neutral model is a better predictor of price when controlling for pieces. However, the difference in the adjusted r squared values is very low (0.01). Since the number lego sets marketed to a gender neutral audience is much higher than ones marked to a masculine audience, it is likely that both of these models to a similarly good job of predicting price when controlling for number of pieces.
+## Results:
 
-## Interpreting Coefficents for Masculine Model:
+Through this analysis, we concluded that the intended gender demographic of Lego sets does not have a significant impact on the price of the set. We fail to reject the null hypothesis and conclude that the reduced model explains more variability in the dataset than a model accounting for feminine marketing. When comparing the results of our models by using get_regression_summaries(price_piece_neutral) and get_regression_summaries(price_piece_masc), the adjusted r squared values indicate that the neutral model is a better predictor of price when controlling for pieces. However, the difference in the adjusted r squared values is very low (0.01). Since the number of lego sets marketed to a gender neutral audience is much higher than ones marked to a masculine audience, it is likely that both of these models do a similarly good job of predicting price when controlling for number of pieces. We compared our nested model to the full models, which look at both number of pieces and gender category, in order to determine which had more influence on price using a nested f-test. We found that whether a set is marked as gender neutral or not has an effect on price, and thus gender neutrality is a necessary component of the model. Additionally, whether a set is marked as masculine or not has an effect on price, and thus masculinity is a necessary component of the model. When considering the "feminine" interaction model, we fail to reject the null hypothesis and conclude the reduced model (price_piece) explains more variability in the dataset than a model accounting for feminine marketing. As for coefficients, our model's intercept tells us that for a non-masculine model with 0 pieces, the predicted price is \$12.84. "Pieces" tells us that for each additional piece in a non-masculine set, the predicted price increase is \$0.07. "Masc: yes" tells us that for a masculine model with 0 pieces, the predicted price is \$-6.62. "Pieces: mascYes" tells us that for each additional piece in a masculine set, the predicted price increase is \$0.03. These values are quite small and therefore have no significant impact on Lego set prices. Thus, we conclude that the gender of Lego sets did not provide any additional explanatory power beyond what was already conveyed by the number of pieces.
 
--   Intercept: For a non-masculine model with 0 pieces the predicted price is 12.84. \*Pieces: For each additional piece in a non-masuline set, the predicted price increase is 0.07.
--   masc: yes: For a masculine model with 0 pieces, the predicted price is -6.62.
--   Pieces: mascYes: For each additional piece in a masculine set, the predicted price increase is 0.03.
+## Discussion:
+
+Overall, when considering if feminine Lego sets had higher average prices than masculine ones, we found that gendered marketing had little impact on Lego set price. Despite our conclusions, however, our findings are limited to the dataset we analyzed, which does not account for Lego sets outside of the time period from 2018-2020. Additionally, we used our personal judgment in order to categorize each Lego set as being masculine, feminine, or neutral, categorizations which may be disputed by those with differing opinions about which set should be assigned to each gendered group. Given the scope of the project, our analyses took into account important factors such as gender in order to draw conclusions about price disparities in children's toy marketing. We also accurately differentiated explanatory variables in order to determine which ones most significantly influenced the outcome variables, fitting interaction models for not just one but all of our gender categories.
