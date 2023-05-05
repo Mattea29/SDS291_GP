@@ -1,5 +1,6 @@
 ---
 title: "SDS291_FinalProject"
+author: Raley Long, Mattea Whitlow, Amelia Tarno, Rachel Lawson
 format: pdf
 editor: visual
 ---
