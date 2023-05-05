@@ -31,10 +31,6 @@ ggplot(lego_clean, aes( x = Pieces, y = Price, color = fem)) +
   geom_smooth(method = "lm") + 
   labs(title = "Scatterplot of Lego Price as a Function of \n Number of Pieces and Gender (Feminine or not)")
 ```
-```{r}
-plot(price_piece_fem)
-```
-
 
 
 ```{r}
@@ -45,18 +41,13 @@ ggplot(lego_clean, aes(x = fem)) + geom_bar() + geom_text(stat = 'count', aes(la
 ggplot(lego_clean, aes(x = masc)) + geom_bar() + geom_text(stat = 'count', aes(label=after_stat(count)), vjust = -0.5) + labs(title = "Counts of Masculine vs. Non-Masculine Marketed Lego Sets", x = "Masculine or Not", y = "Count")
 ```
 
-```{r}
-plot(price_piece_masc)
-```
+
 
 
 ```{r}
 ggplot(lego_clean, aes(x = neutral)) + geom_bar() + geom_text(stat = 'count', aes(label=after_stat(count)), vjust = -0.5) + labs(title = "Counts of Neutral vs. Non-Neutral  Marketed Lego Sets", x = "Neutral or Not", y = "Count")
-```
-```{r}
-plot(price_piece_neutral)
-```
 
+```
 
 ```{r}
 price_piece_masc <- lm(Price ~ Pieces * masc, lego_clean)
@@ -73,9 +64,28 @@ ggplot(lego_clean, aes( x = Pieces, y = Price, color = neutral)) +
   labs(title = "Scatterplot of Lego Price as a Function of \n Number of Pieces and Gender (Neutral or not)")
 ```
 ```{r}
+plot(price_piece_neutral)
+```
+
+
+```{r}
+plot(price_piece_masc)
+```
+
+```{r}
+plot(price_piece_fem)
+```
+
+```{r}
 price_piece <- lm(Price ~ Pieces, data = lego_clean)
+plot(price_piece)
+```
+
+
+```{r}
 get_regression_table(price_piece)
 ```
+
 ```{r}
 get_regression_table(price_piece_fem)
 ```
